@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+	<interceptors>
+		<interceptor name="login" class="org.websparrow.interceptors.LoginInterceptor" />
+		<interceptor-stack name="loginStack">
+				<interceptor-ref name="login"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+	</interceptors>
+
+	<default-interceptor-ref name="loginStack"/>
+
+	<global-results>
+		<result name="login" type="tiles">login</result>
+		<result name="login-success" type="tiles">register</result>
+	</global-results>
+
+	<action name="registeruser" class="org.websparrow.action.RegisterAction">
+			<result name="REGISTER" type="tiles">register</result>
+		</action>
+		<action name="report" class="org.websparrow.action.ReportAction">
+			<result name="REPORT" type="tiles">report</result>
+		</action>
+		<action name="updateuser" class="org.websparrow.action.UpdateAction">
+			<result name="UPDATE" type="tiles"></result>
+		</action>
+		<action name="deleteuser" class="org.websparrow.action.DeleteAction">
+			<result name="DELETE" type="tiles">report</result>
+		</action>
+		<action name="*Link" method="{1}" class="org.websparrow.action.LinkAction">
+			<result name="login" type="tiles">login</result>
+			<result name="welcome" type="tiles">register</result>
+			<result name="friends" type="tiles">friends</result>
+			<result name="office" type="tiles">office</result>
+		</action>
+	</package>
+</struts>
